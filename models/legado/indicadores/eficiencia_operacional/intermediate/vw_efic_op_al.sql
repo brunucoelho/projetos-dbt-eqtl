@@ -1,0 +1,103 @@
+SELECT
+	T.*,
+	CASE
+		WHEN (T.FLAG_RET + T.FLAG_PRAZO + T.FLAG_IMPRODUTIVA + T.FLAG_IMPROCEDENCIA + T.FLAG_REINCIDENCIA) >= 1 THEN 'INEF.'
+		ELSE 'EFIC.'
+	END FLAG_TOTAL,
+	CASE
+		WHEN T.FLAG_REINCIDENCIA = 1 THEN 'REINCIDENCIA'
+		WHEN T.FLAG_IMPROCEDENCIA = 1 THEN 'IMPROCEDENCIA'
+		WHEN T.FLAG_RET = 1 THEN 'RETRABALHO'
+		WHEN T.FLAG_PRAZO = 1 THEN 'PRAZO'
+		WHEN T.FLAG_IMPRODUTIVA = 1 THEN 'IMPRODUTIVIDADE_UPS'
+		ELSE ''
+	END CATEGORIA
+FROM
+	(
+	--AL
+	SELECT
+		DISTINCT
+        ups.empresa,
+		ups.p_Regional regional_prx,
+		ups.p_Polo polo_prx,
+		ups.p_pROCESSO processo,
+		ups.serv_campo,
+		ups.p_fornecedor fonecedor,
+		ups.equipe,
+		to_char(ups.os_oper) OS_OPER,
+		ups.os,
+		ups.ostipo_id,
+		ups.ossubtipo_id,
+		ups.tipo_conclusao,
+		CASE
+			WHEN UPS.Ch_Ups IN ('CORTE IMPRODUTIVO', 'SERVICO INVALIDO', 'SERVICO IMPRODUTIVO', 'MT IMPRODUTIVA', 'EMERGENCIA IMPRODUTIVA', 'RELIGACAO IMPRODUTIVA') THEN 'IMPRODUTIVO'
+			ELSE 'PRODUTIVO'
+		END tipo,
+		ups.ch_ups,
+		ups.UPS valor_ups,
+		ups.competencia,
+		ups.data_conclusao,
+		UPS.DIAS,
+		ups.turnos,
+		RET.OS_OPER_ORIGEM,
+		RET.PREFIXO_ORIGEM,
+		RET.TIPO_ORIGEM,
+		RET.TIPO_CONCLUSAO_ORIGEM,
+		pp.codigo_medida,
+		to_char(pp.status_prazo) STATUS_PRAZO,
+		--DE.PROCEDENCIA,
+		INC.REINCIDENTE_90_DIAS,
+		INC.N_REINC,
+		CASE
+			WHEN RET.OS_OPER_ORIGEM IS NOT NULL THEN 1
+			ELSE 0
+		END FLAG_RET,
+		CASE
+			WHEN PP.STATUS_PRAZO = 'ATENDIDO FORA DO PRAZO' THEN 1
+			ELSE 0
+		END FLAG_PRAZO,
+		CASE
+			WHEN UPS.Ch_Ups IN ('CORTE IMPRODUTIVO', 'SERVICO INVALIDO', 'SERVICO IMPRODUTIVO', 'MT IMPRODUTIVA', 'EMERGENCIA IMPRODUTIVA', 'RELIGACAO IMPRODUTIVA') THEN 1
+			ELSE 0
+		END FLAG_IMPRODUTIVA,
+		CASE
+			WHEN ups.ostipo_id = 'NR'
+			AND ups.tipo_conclusao IN ('CASA FECHADA', 'ENDERECO NAO LOCALIZADO', 'NÃO LOCALIZADO',
+        'INTERRUPCAO INDIVIDUAL POR DEFEITO INTERNO', 'LIGACAO CORTADA', 'CONSUMIDOR CORTADO',
+        'DISJUNTOR DESLIGADO', 'NORMAL', 'DEFEITO INTERNO', 'OUTROS ESPECIFICAR (IMPROCEDENTE)',
+        'SERVICO PREVENTIVO NAO PROGRAMADO', 'ENCONTRADO NORMAL') THEN 1
+			ELSE 0
+		END FLAG_IMPROCEDENCIA,
+		CASE
+			WHEN INC.REINCIDENTE_90_DIAS = 'S' THEN 1
+			ELSE 0
+		END FLAG_REINCIDENCIA,
+		ups.data_daDos
+	FROM
+		{{ ref('serv_exec_detalhado2') }} ups
+	LEFT JOIN SB_PERFORMANCE.EQTL_AL.RETRABALHO ret ON
+		to_char(ups.os_oper) = CASE
+			WHEN ret.os IS NOT NULL
+			AND ret.os LIKE '____-%/%'
+			AND POSITION('/' IN ret.os) > 0
+			AND POSITION('-' IN ret.os) > 0 THEN SPLIT_PART(ret.os, '/', 2) || '-' || SPLIT_PART(SPLIT_PART(ret.os, '-', 2), '/', 1) || '-' || SPLIT_PART(ret.os, '-', 1)
+			ELSE ret.os
+		END
+		AND to_char(reT.oco_data_conclusao_origem, 'YYYYMM') = UPS.COMPETENCIA
+	LEFT JOIN (
+		SELECT
+			*
+		FROM
+			{{ ref('prazo_sap_stc_al') }}
+		WHERE
+			TIPO_NOTA NOT IN ('NR')) PP ON
+		TRY_TO_NUMBER(pp.nota) = TRY_TO_NUMBER(replace(TRANSLATE(UPS.OS_OPER, '/-', ' '), ' ', ''))
+		--left join  OWGSLCMR.GESTAO_DEC_FEC_MA DE ON to_char(DE.OCORRENCIA_ID)=UPS.OS_OPER AND to_char(DE.OCO_NUMERO)=UPS.OS
+	LEFT JOIN {{ ref('det_reinc_trafo') }} INC ON
+		TO_CHAR(OCO_NUMERO::INTEGER) = REPLACE(REPLACE(UPS.OS_OPER,' ',''),'INC','')
+		AND inc.empresa = UPS.EMPRESA
+	WHERE
+		ups.competencia = {{ get_month_ref() }}
+		AND ups.ch_ups NOT IN ('SERVICO INVALIDO')
+		AND UPS.EMPRESA = 'EQTL_AL'
+) T

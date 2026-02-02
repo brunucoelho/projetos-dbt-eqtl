@@ -1,0 +1,77 @@
+version: 2
+
+models:
+  - name: retrabalho_al
+    description: "Retrabalho operacional - Alagoas"
+    config:
+      materialized: incremental
+      tags: ['marts', 'retrabalho', 'al', 'legado']
+
+  - name: retrabalho_ap
+    description: "Retrabalho operacional - Amapa"
+    config:
+      materialized: incremental
+      tags: ['marts', 'retrabalho', 'ap', 'legado']
+
+  - name: retrabalho_go
+    description: |
+      Identificacao de retrabalho operacional para Goias.
+      Baseado em notas NR com mesma UC em janela de 90 dias.
+    config:
+      materialized: incremental
+      tags: ['marts', 'retrabalho', 'go', 'legado']
+    columns:
+      - name: empresa
+        description: "Codigo da empresa"
+        tests:
+          - not_null
+      - name: os_oper
+        description: "OS operacional atual"
+        tests:
+          - not_null
+      - name: uc
+        description: "Unidade consumidora"
+      - name: oco_data_conclusao
+        description: "Data de conclusao da OS atual"
+      - name: ostipo
+        description: "Tipo da OS"
+      - name: ossubtipo
+        description: "Subtipo da OS"
+      - name: prefixo
+        description: "Prefixo da equipe"
+      - name: componente_danificado
+        description: "Componente danificado"
+      - name: tipo_conclusao
+        description: "Tipo de conclusao"
+      - name: subcausa
+        description: "Subcausa do problema"
+      - name: os_oper_origem
+        description: "OS de origem (se retrabalho)"
+      - name: oco_data_conclusao_origem
+        description: "Data de conclusao da OS origem"
+      - name: prefixo_origem
+        description: "Prefixo da equipe na OS origem"
+
+  - name: retrabalho_ma
+    description: "Retrabalho operacional - Maranhao"
+    config:
+      materialized: incremental
+      tags: ['marts', 'retrabalho', 'ma', 'legado']
+
+  - name: retrabalho_pa
+    description: "Retrabalho operacional - Para"
+    config:
+      materialized: incremental
+      tags: ['marts', 'retrabalho', 'pa', 'legado']
+
+  - name: retrabalho_pi
+    description: "Retrabalho operacional - Piaui"
+    config:
+      materialized: incremental
+      tags: ['marts', 'retrabalho', 'pi', 'legado']
+
+  - name: retrabalho_rs
+    description: "Retrabalho operacional - Rio Grande do Sul"
+    config:
+      materialized: incremental
+      tags: ['marts', 'retrabalho', 'rs', 'legado']

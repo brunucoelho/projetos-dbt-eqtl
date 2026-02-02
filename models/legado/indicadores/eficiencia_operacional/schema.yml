@@ -1,0 +1,29 @@
+version: 2
+
+models:
+  - name: efic_oper_detalhado
+    description: |
+      Modelo de producao para eficiencia operacional detalhada.
+      Consolida dados de eficiencia de todas as regionais: AL, AP, GO, MA, PA, PI e RS.
+      Utiliza logica incremental com delete para a mesma competencia antes de inserir.
+    config:
+      tags: ['production', 'eficiencia', 'operacional', 'legado']
+    columns:
+      - name: equipe
+        description: "Nome/codigo da equipe"
+      - name: competencia
+        description: "Periodo de competencia no formato YYYYMM"
+      - name: regional
+        description: "Regional: AL, AP, GO, MA, PA, PI ou RS"
+      - name: polo
+        description: "Nome do polo"
+      - name: contrato
+        description: "Nome do contrato"
+      - name: empresa
+        description: "Nome da empresa"
+      - name: fornecedor
+        description: "Nome do fornecedor"
+      - name: tempo_disponivel
+        description: "Tempo disponivel em minutos"
+      - name: jornada_prevista
+        description: "Jornada prevista em minutos"

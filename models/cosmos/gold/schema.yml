@@ -1,0 +1,358 @@
+version: 2
+
+models:
+  - name: fato_aderencia_escala
+    description: |
+      Tabela fato que armazena os dados de aderencia a escala de trabalho dos colaboradores.
+      Cruza informacoes de escalas de servico com dados de equipes, polos, contratos e fornecedores.
+      Fonte principal: fato_aderencia_escala do schema raw.
+    config:
+      tags: ['gold', 'aderencia', 'escala']
+    columns:
+      - name: equipe
+        description: "Nome ou codigo da equipe"
+        tests:
+          - not_null
+      - name: data
+        description: "Data de referencia da escala (DATE)"
+        tests:
+          - not_null
+      - name: polo_id
+        description: "Identificador do polo no sistema Cosmos (obtido via dim_polos_cosmos)"
+      - name: polo
+        description: "Nome do polo"
+      - name: contrato_id
+        description: "Identificador do contrato no sistema Cosmos (obtido via dim_contratos_cosmos)"
+      - name: contrato
+        description: "Nome do contrato"
+      - name: empresa
+        description: "Nome da empresa (obtido via dim_empresas)"
+      - name: regional
+        description: "Nome da regional (obtido via dim_regionais)"
+      - name: fornecedor
+        description: "Nome do fornecedor (obtido via dim_fornecedores)"
+      - name: estado_escala
+        description: "Estado da aderencia: ADERENTE, ADIANTADO, ATRASADO, AUSENTE"
+
+  - name: fato_corte_prioridade
+    description: |
+      Tabela fato que armazena os dados de corte por prioridade (P1 e P2).
+      Contem informacoes sobre notas de corte geradas e executadas por equipe.
+      Fonte principal: fato_nota_corte do schema raw.
+    config:
+      tags: ['gold', 'corte', 'prioridade']
+    columns:
+      - name: equipe
+        description: "Nome ou codigo da equipe responsavel pelo corte"
+        tests:
+          - not_null
+      - name: data
+        description: "Data de execucao em campo (DATE)"
+        tests:
+          - not_null
+      - name: polo_id
+        description: "Identificador do polo no sistema Cosmos"
+      - name: polo
+        description: "Nome do polo"
+      - name: contrato_id
+        description: "Identificador do contrato no sistema Cosmos"
+      - name: contrato
+        description: "Nome do contrato"
+      - name: empresa
+        description: "Nome da empresa"
+      - name: regional
+        description: "Nome da regional"
+      - name: fornecedor
+        description: "Nome do fornecedor"
+      - name: prioridade
+        description: "Prioridade do corte: P1 ou P2"
+      - name: nota
+        description: "Numero da nota de servico"
+      - name: gerado
+        description: "Flag indicando se a nota foi gerada (1/0)"
+      - name: executado
+        description: "Flag indicando se a nota foi executada no mesmo contrato e mes (1/0)"
+
+  - name: fato_desligamento_prog
+    description: |
+      Tabela fato de desligamentos programados.
+      Registra eventos de desligamento planejados para manutencao preventiva ou obras.
+      Fonte principal: fato_desligamento_programado do schema raw.
+    config:
+      tags: ['gold', 'desligamento', 'programado']
+    columns:
+      - name: equipe
+        description: "Equipe responsavel pelo desligamento"
+        tests:
+          - not_null
+      - name: data
+        description: "Data do desligamento programado (DATE)"
+        tests:
+          - not_null
+      - name: polo_id
+        description: "Identificador do polo no sistema Cosmos"
+      - name: polo
+        description: "Nome do polo"
+      - name: contrato_id
+        description: "Identificador do contrato no sistema Cosmos"
+      - name: contrato
+        description: "Nome do contrato"
+      - name: empresa
+        description: "Nome da empresa"
+      - name: regional
+        description: "Nome da regional"
+      - name: fornecedor
+        description: "Nome do fornecedor"
+      - name: tempo_previsto
+        description: "Tempo de desligamento previsto em minutos"
+      - name: tempo_real
+        description: "Tempo de desligamento real/efetivo em minutos"
+
+  - name: fato_disponibilidade_oper
+    description: |
+      Tabela fato de disponibilidade operacional das equipes.
+      Compara tempo disponivel versus jornada de trabalho prevista.
+      Fonte principal: fato_disponibilidade_operacional do schema raw.
+    config:
+      tags: ['gold', 'disponibilidade', 'operacional']
+    columns:
+      - name: equipe
+        description: "Nome ou codigo da equipe"
+        tests:
+          - not_null
+      - name: data
+        description: "Data de referencia (DATE)"
+        tests:
+          - not_null
+      - name: polo_id
+        description: "Identificador do polo no sistema Cosmos"
+      - name: polo
+        description: "Nome do polo"
+      - name: contrato_id
+        description: "Identificador do contrato no sistema Cosmos"
+      - name: contrato
+        description: "Nome do contrato"
+      - name: empresa
+        description: "Nome da empresa"
+      - name: regional
+        description: "Nome da regional"
+      - name: fornecedor
+        description: "Nome do fornecedor"
+      - name: tempo_disponivel
+        description: "Tempo disponivel do recurso em minutos"
+      - name: jornada_prevista
+        description: "Jornada de trabalho prevista em minutos"
+
+  - name: fato_mepe_comercial
+    description: |
+      Tabela fato de MEPE Comercial - Desenvolvimento de Equipes.
+      Armazena a classificacao de colaboradores comerciais por classe de desempenho.
+      Fonte principal: fato_mepe do schema raw filtrado para tipo COMERCIAL.
+    config:
+      tags: ['gold', 'mepe', 'comercial']
+    columns:
+      - name: equipe
+        description: "Nome ou codigo da equipe"
+        tests:
+          - not_null
+      - name: data
+        description: "Data de competencia - primeiro dia do mes (DATE)"
+        tests:
+          - not_null
+      - name: polo_id
+        description: "Identificador do polo no sistema Cosmos"
+      - name: polo
+        description: "Nome do polo"
+      - name: contrato_id
+        description: "Identificador do contrato no sistema Cosmos"
+      - name: contrato
+        description: "Nome do contrato"
+      - name: empresa
+        description: "Nome da empresa"
+      - name: regional
+        description: "Nome da regional"
+      - name: fornecedor
+        description: "Nome do fornecedor"
+      - name: classe_mepe
+        description: "Classe de avaliacao MEPE: A, B, C ou D"
+      - name: colaborador
+        description: "Identificador ou nome do colaborador"
+
+  - name: fato_mepe_ups
+    description: |
+      Tabela fato de MEPE UPS - Desenvolvimento de Equipes de Unidade de Pronto Servico.
+      Armazena a classificacao de colaboradores UPS por classe de desempenho final.
+      Fonte principal: fato_mepe do schema raw filtrado para tipo UPS.
+    config:
+      tags: ['gold', 'mepe', 'ups']
+    columns:
+      - name: equipe
+        description: "Nome ou codigo da equipe"
+        tests:
+          - not_null
+      - name: data
+        description: "Data de competencia derivada de dh_competencia (YYYYMM)"
+        tests:
+          - not_null
+      - name: polo_id
+        description: "Identificador do polo no sistema Cosmos"
+      - name: polo
+        description: "Nome do polo"
+      - name: contrato_id
+        description: "Identificador do contrato no sistema Cosmos"
+      - name: contrato
+        description: "Nome do contrato"
+      - name: empresa
+        description: "Nome da empresa"
+      - name: regional
+        description: "Nome da regional"
+      - name: fornecedor
+        description: "Nome do fornecedor"
+      - name: classe_mepe_final
+        description: "Classe final de avaliacao MEPE: A, B, C ou D"
+      - name: colaborador
+        description: "Identificador ou nome do colaborador"
+
+  - name: fato_primeira_visita
+    description: |
+      Tabela fato de primeira visita.
+      Registra ocorrencias e se foram resolvidas na primeira visita.
+      Fonte principal: fato_primeira_visita do schema raw.
+    config:
+      tags: ['gold', 'primeira_visita']
+    columns:
+      - name: equipe
+        description: "Nome ou codigo da equipe"
+        tests:
+          - not_null
+      - name: data
+        description: "Data de referencia (DATE)"
+        tests:
+          - not_null
+      - name: polo_id
+        description: "Identificador do polo no sistema Cosmos"
+      - name: polo
+        description: "Nome do polo"
+      - name: contrato_id
+        description: "Identificador do contrato no sistema Cosmos"
+      - name: contrato
+        description: "Nome do contrato"
+      - name: empresa
+        description: "Nome da empresa"
+      - name: regional
+        description: "Nome da regional"
+      - name: fornecedor
+        description: "Nome do fornecedor"
+      - name: nota
+        description: "Numero da nota/ocorrencia"
+      - name: resolvida_primeira_visita
+        description: "Flag indicando se foi resolvida na primeira visita (1/0)"
+
+  - name: fato_produtividade_ups
+    description: |
+      Tabela fato de produtividade UPS.
+      Armazena metricas de produtividade baseadas na classificacao MEPE UPS.
+      Fonte principal: fato_mepe do schema raw com dados de producao.
+    config:
+      tags: ['gold', 'produtividade', 'ups']
+    columns:
+      - name: equipe
+        description: "Nome ou codigo da equipe"
+        tests:
+          - not_null
+      - name: data
+        description: "Data de referencia (DATE)"
+        tests:
+          - not_null
+      - name: polo_id
+        description: "Identificador do polo no sistema Cosmos"
+      - name: polo
+        description: "Nome do polo"
+      - name: contrato_id
+        description: "Identificador do contrato no sistema Cosmos"
+      - name: contrato
+        description: "Nome do contrato"
+      - name: empresa
+        description: "Nome da empresa"
+      - name: regional
+        description: "Nome da regional"
+      - name: fornecedor
+        description: "Nome do fornecedor"
+      - name: classe_mepe_ups
+        description: "Classe de avaliacao MEPE UPS: A, B, C ou D"
+      - name: realizado_mensal
+        description: "Valor realizado mensal"
+      - name: dias_uteis
+        description: "Quantidade de dias uteis no periodo"
+
+  - name: fato_religa_vinculada
+    description: |
+      Tabela fato de religa vinculada.
+      Armazena dados de cortes e religas para analise de vinculacao entre as operacoes.
+      Fonte principal: fato_nota_religa do schema raw.
+    config:
+      tags: ['gold', 'religa', 'vinculada']
+    columns:
+      - name: equipe
+        description: "Nome ou codigo da equipe"
+        tests:
+          - not_null
+      - name: data
+        description: "Data de execucao em campo (DATE)"
+        tests:
+          - not_null
+      - name: polo_id
+        description: "Identificador do polo no sistema Cosmos"
+      - name: polo
+        description: "Nome do polo"
+      - name: contrato_id
+        description: "Identificador do contrato no sistema Cosmos"
+      - name: contrato
+        description: "Nome do contrato"
+      - name: empresa
+        description: "Nome da empresa"
+      - name: regional
+        description: "Nome da regional"
+      - name: fornecedor
+        description: "Nome do fornecedor"
+      - name: tipo_nota
+        description: "Tipo da nota: CORTE ou RELIGA"
+      - name: nota
+        description: "Numero da nota de servico"
+
+  - name: fato_tms
+    description: |
+      Tabela fato de Tempo Medio de Servico (TMS).
+      Armazena dados de tempo de servico apurado versus previsto.
+      Fonte principal: fato_tms do schema raw.
+    config:
+      tags: ['gold', 'tms', 'tempo_servico']
+    columns:
+      - name: equipe
+        description: "Nome ou codigo da equipe"
+        tests:
+          - not_null
+      - name: data
+        description: "Data da ocorrencia (DATE)"
+        tests:
+          - not_null
+      - name: polo_id
+        description: "Identificador do polo no sistema Cosmos"
+      - name: polo
+        description: "Nome do polo"
+      - name: contrato_id
+        description: "Identificador do contrato no sistema Cosmos"
+      - name: contrato
+        description: "Nome do contrato"
+      - name: empresa
+        description: "Nome da empresa"
+      - name: regional
+        description: "Nome da regional"
+      - name: fornecedor
+        description: "Nome do fornecedor"
+      - name: tempo_apurado
+        description: "Tempo de servico realizado em minutos"
+      - name: tempo_previsto
+        description: "Tempo medio de servico esperado em minutos"
+      - name: nota
+        description: "Numero da nota/ocorrencia"

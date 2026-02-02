@@ -1,0 +1,38 @@
+unit_tests:
+  - name: test_parse_timestamp
+    model: test_parse_timestamp
+
+    given:
+      - input: ref('test_source')
+        format: sql
+        rows: |
+          select null as timestamp_string
+          union all
+          select '12/01/2025 14:03:15' as timestamp_string
+          union all
+          select '12-01-2025 14:03:15' as timestamp_string
+          union all
+          select '12/01/25 14:03:15' as timestamp_string
+          union all
+          select '12/01/25 14:03' as timestamp_string
+          union all
+          select '12-01-25 14:03' as timestamp_string
+          union all
+          select '2025-12-01T14:03:15' as timestamp_string
+
+    expect:
+      format: sql
+      rows: |
+        select null as timestamp_string, null as parsed_timestamp
+        union all
+        select '12/01/2025 14:03:15', to_timestamp('2025-01-12 14:03:15')
+        union all
+        select '12-01-2025 14:03:15', to_timestamp('2025-01-12 14:03:15')
+        union all
+        select '12/01/25 14:03:15', to_timestamp('2025-01-12 14:03:15')
+        union all
+        select '12/01/25 14:03', to_timestamp('2025-01-12 14:03:00')
+        union all
+        select '12-01-25 14:03', to_timestamp('2025-01-12 14:03:00')
+        union all
+        select '2025-12-01T14:03:15', to_timestamp('2025-12-01 14:03:15')

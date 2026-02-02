@@ -1,0 +1,45 @@
+version: 2
+
+models:
+  - name: corte_prioridade
+    description: |
+      Analise de cortes por prioridade (P1, P2, P3).
+      Inclui historico de atribuicoes, contratos de atribuicao vs conclusao.
+      Consolida dados de GO e SAP.
+    config:
+      tags: ['production', 'corte', 'prioridade', 'legado']
+    columns:
+      - name: sigla_empresa
+        description: "Sigla da empresa"
+        tests:
+          - not_null
+      - name: empresa
+        description: "Nome da empresa"
+      - name: regional
+        description: "Nome da regional"
+      - name: polo
+        description: "Nome do polo"
+      - name: nota
+        description: "Numero da nota de corte"
+        tests:
+          - not_null
+      - name: valor_divida
+        description: "Valor da divida do cliente"
+      - name: prioridade
+        description: "Prioridade do corte: P1, P2, P3"
+      - name: modalidade_prioridade
+        description: "Modalidade da prioridade"
+      - name: dt_competencia
+        description: "Data de competencia"
+      - name: contrato_atribuicao
+        description: "Contrato no momento da atribuicao"
+      - name: contrato_conclusao
+        description: "Contrato no momento da conclusao"
+      - name: equipe_conclusao
+        description: "Equipe que concluiu o corte"
+      - name: dh_execucao_campo
+        description: "Data/hora de execucao em campo"
+      - name: historico_atribuicoes
+        description: "Historico de todas as atribuicoes da nota"
+      - name: qtd_atribuicoes
+        description: "Quantidade de vezes que a nota foi atribuida"

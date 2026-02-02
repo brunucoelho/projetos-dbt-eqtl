@@ -1,0 +1,43 @@
+version: 2
+
+models:
+  - name: religa_vinculada
+    description: |
+      Registro de notas de religamento vinculadas a cortes.
+      Inclui informacoes de corte e religa por fornecedor/contrato.
+      Permite analise de vinculacao entre operacoes.
+    config:
+      tags: ['production', 'religa', 'vinculada', 'legado']
+    columns:
+      - name: dh_etl
+        description: "Data/hora da carga ETL"
+        tests:
+          - not_null
+      - name: sigla_empresa
+        description: "Sigla da empresa"
+      - name: empresa
+        description: "Nome da empresa"
+      - name: regional
+        description: "Nome da regional"
+      - name: polo
+        description: "Nome do polo"
+      - name: conta_contrato
+        description: "Conta contrato do cliente"
+      - name: nota
+        description: "Numero da nota"
+        tests:
+          - not_null
+      - name: tipo
+        description: "Tipo da nota: CORTE ou RELIGA"
+      - name: dh_abertura
+        description: "Data/hora de abertura"
+      - name: dh_finalizado
+        description: "Data/hora de finalizacao"
+      - name: dh_execucao_campo
+        description: "Data/hora de execucao em campo"
+      - name: equipe_conclusao
+        description: "Equipe que concluiu"
+      - name: contrato
+        description: "Nome do contrato"
+      - name: fornecedor_sap
+        description: "Codigo do fornecedor no SAP"

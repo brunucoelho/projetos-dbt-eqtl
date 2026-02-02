@@ -1,0 +1,65 @@
+version: 2
+
+models:
+  - name: disponibilidade_operacional
+    description: |
+      Indicador de disponibilidade operacional das equipes.
+      Considera escalas previstas, intervalos e indisponibilidades.
+      Calcula o tempo efetivamente disponivel para trabalho.
+    config:
+      tags: ['production', 'disponibilidade', 'operacional', 'legado']
+    columns:
+      - name: origem
+        description: "Sistema de origem dos dados"
+      - name: prefixo
+        description: "Prefixo/codigo da equipe"
+        tests:
+          - not_null
+      - name: regional
+        description: "Nome da regional"
+      - name: polo
+        description: "Nome do polo"
+      - name: municipio
+        description: "Municipio de atuacao"
+      - name: fornecedor
+        description: "Nome do fornecedor"
+      - name: serv_campo
+        description: "Tipo de servico de campo"
+      - name: processo
+        description: "Tipo de processo"
+      - name: tipo_eqp
+        description: "Tipo da equipe"
+      - name: data
+        description: "Data de referencia"
+        tests:
+          - not_null
+      - name: escala_prevista
+        description: "Tempo de escala previsto em minutos"
+      - name: intervalo_previsto
+        description: "Tempo de intervalo previsto em minutos"
+      - name: intervalo_real
+        description: "Tempo de intervalo real em minutos"
+      - name: indisponibilidade
+        description: "Tempo de indisponibilidade em minutos"
+      - name: tempo_total
+        description: "Tempo total disponivel em minutos"
+
+  - name: indisponibilidades
+    description: "Registro de indisponibilidades das equipes SIGA"
+    config:
+      tags: ['production', 'indisponibilidade', 'legado']
+
+  - name: indisponibilidades_go
+    description: "Registro de indisponibilidades das equipes GO"
+    config:
+      tags: ['production', 'indisponibilidade', 'go', 'legado']
+
+  - name: intervalos
+    description: "Registro de intervalos das equipes SIGA"
+    config:
+      tags: ['production', 'intervalo', 'legado']
+
+  - name: intervalos_go
+    description: "Registro de intervalos das equipes GO"
+    config:
+      tags: ['production', 'intervalo', 'go', 'legado']

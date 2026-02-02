@@ -1,0 +1,187 @@
+# Name your project! Project names should contain only lowercase characters
+# and underscores. A good package name should reflect your organization's
+# name or the intended use of these models
+name: 'performance_legacy'
+version: '1.0.0'
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'performance_legacy'
+
+# These configurations specify where dbt should look for different types of files.
+# The `model-paths` config, for example, states that models in this project can be
+# found in the "models/" directory. You probably won't need to change these!
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+clean-targets:         # directories to be removed by `dbt clean`
+  - "target"
+  - "dbt_packages"
+
+
+# Configuring models
+# Full documentation: https://docs.getdbt.com/docs/configuring-models
+
+# Estrutura reorganizada:
+# - cosmos/ : Modelos do sistema Cosmos (KPIs, Golds, Dimensões)
+# - legado/ : Modelos legados (Dimensões, Indicadores)
+# - equipes/ : Modelos de tradução do cadastro de equipes
+models:
+  unit_test:
+    +materialized: ephemeral
+  performance_legacy:
+    scenarios:
+      +materialized: table
+      +schema: eqtl_corp
+    # ===== COSMOS =====
+    cosmos:
+      dimensoes:
+        +schema: silver
+      gold:
+        +schema: gold
+      kpi:
+        +schema: gold
+    # ===== LEGADO =====
+    equipes:
+      intermediate:
+        +materialized: view
+        +schema: eqtl_corp
+      production:
+        +materialized: incremental
+        +schema: eqtl_corp
+    legado:
+      dimensoes:
+        +schema: silver
+      indicadores:
+        aderencia_escala:
+          intermediate:
+            +materialized: view
+            +schema: eqtl_corp
+          production:
+            +materialized: incremental
+            +schema: eqtl_corp
+        aderencia_execucao:
+          intermediate:
+            +materialized: view
+            +schema: eqtl_corp
+          production:
+            +materialized: incremental
+            +schema: eqtl_corp
+        disponibilidade_operacional:
+          intermediate:
+            +materialized: view
+            +schema: eqtl_corp
+          production:
+            +materialized: incremental
+            +schema: eqtl_corp
+        desligamento_acidental:
+          intermediate:
+            +materialized: view
+            +schema: eqtl_corp
+          production:
+            +materialized: incremental
+            +schema: eqtl_corp
+        tempo_desligamento_programado:
+          intermediate:
+            +materialized: view
+            +schema: eqtl_corp
+          production:
+            +materialized: incremental
+            +schema: eqtl_corp
+        atribuicao_corte:
+          intermediate:
+            +materialized: view
+            +schema: eqtl_corp
+          production:
+            +materialized: incremental
+            +schema: eqtl_corp
+        nota_corte:
+          intermediate:
+            +materialized: view
+            +schema: eqtl_corp
+          production:
+            +materialized: incremental
+            +schema: eqtl_corp
+        nota_religa:
+          intermediate:
+            +materialized: view
+            +schema: eqtl_corp
+          production:
+            +materialized: incremental
+            +schema: eqtl_corp
+        religa_vinculada:
+          intermediate:
+            +materialized: view
+            +schema: eqtl_corp
+          production:
+            +materialized: incremental
+            +schema: eqtl_corp
+        corte_prioridade:
+          intermediate:
+            +materialized: view
+            +schema: eqtl_corp
+          production:
+            +materialized: incremental
+            +schema: eqtl_corp
+        primeira_visita:
+          intermediate:
+            +materialized: view
+            +schema: eqtl_corp
+          production:
+            +materialized: incremental
+            +schema: eqtl_corp
+        reincidencia_emergencial:
+          intermediate:
+            +materialized: view
+            +schema: eqtl_corp
+          production:
+            +materialized: incremental
+            +schema: eqtl_corp
+        reincidencia_transformador:
+          intermediate:
+            +materialized: view
+            +schema: eqtl_corp
+          production:
+            +materialized: incremental
+            +schema: eqtl_corp
+        ups:
+          intermediate:
+            +materialized: view
+            +schema: eqtl_corp
+          production:
+            +materialized: incremental
+            +schema: eqtl_corp
+        eficiencia_operacional:
+          intermediate:
+            +materialized: view
+            +schema: eqtl_corp
+          production:
+            +materialized: incremental
+            +schema: eqtl_corp
+        prazo_sap_stc:
+          intermediate:
+            +materialized: view
+            +schema: eqtl_corp
+          production:
+            +materialized: incremental
+            +schema: eqtl_corp
+        mepe_stc:
+          ephemeral:
+            +materialized: ephemeral
+            +schema: eqtl_corp
+          intermediate:
+            +materialized: view
+            +schema: eqtl_corp
+          production:
+            +materialized: incremental
+            +schema: eqtl_corp
+        retrabalho:
+          intermediate:
+            +materialized: view
+            +schema: eqtl_corp
+          production:
+            +materialized: incremental
+            +schema: eqtl_corp

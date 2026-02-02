@@ -1,0 +1,379 @@
+version: 2
+
+models:
+  - name: dim_contratos
+    description: "Dimensão de contratos - relacionada com fornecedores e empresas"
+    depends_on:
+      - ref('dim_fornecedores')
+      - ref('dim_empresas')
+    columns:
+      - name: id
+        description: "ID único auto-incremental do contrato (sequência Snowflake)"
+        tests:
+          - unique
+          - not_null
+      - name: contrato_sap
+        description: "Código do contrato no SAP"
+        tests:
+          - unique
+          - not_null
+      - name: cod_fornecedor
+        description: "Código de negócio do fornecedor (FK)"
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_fornecedores')
+                field: cod_fornecedor
+      - name: fornecedor_id
+        description: "ID do fornecedor (FK dimensional - apenas ID incremental)"
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_fornecedores')
+                field: id
+      - name: cod_empresa
+        description: "Código de negócio da empresa (FK)"
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_empresas')
+                field: cod_empresa
+      - name: empresa_id
+        description: "ID da empresa (FK dimensional - apenas ID incremental)"
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_empresas')
+                field: id
+      - name: objeto
+        description: "Descrição do objeto do contrato"
+        tests:
+          - not_null
+      - name: cod_tipo_contrato
+        description: "Código do tipo de contrato"
+        tests:
+          - not_null
+      - name: dt_ref
+        description: "Timestamp da carga sistêmica"
+        tests:
+          - not_null
+
+  - name: dim_empresas
+    description: "Dimensão de empresas do grupo - nível hierárquico mais alto"
+    columns:
+      - name: id
+        description: "ID único auto-incremental da empresa (sequência Snowflake)"
+        tests:
+          - unique
+          - not_null
+      - name: cod_empresa
+        description: "Código de negócio da empresa"
+        tests:
+          - unique
+          - not_null
+      - name: empresa
+        description: "Nome da empresa"
+        tests:
+          - not_null
+      - name: dt_ref
+        description: "Timestamp da carga sistêmica"
+        tests:
+          - not_null
+
+  # MODELOS INTERMEDIATE - PROCESSAMENTO POR SISTEMA
+  
+  - name: int_equipes_siga
+    description: "Modelo intermediate para equipes do sistema SIGA - processa e padroniza dados"
+    config:
+      materialized: view
+      tags: ['dimension', 'equipes', 'intermediate', 'siga']
+    columns:
+      - name: prefixo
+        description: "Nome/código da equipe no sistema SIGA"
+        tests:
+          - not_null
+      - name: polo_id
+        description: "ID do polo (-1 se não informado)"
+        tests:
+          - not_null
+      - name: contrato_id
+        description: "ID do contrato (-1 se não informado)"
+        tests:
+          - not_null
+      - name: sistema_origem
+        description: "Sistema de origem (sempre 'SIGA' neste modelo)"
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['SIGA']
+      - name: status
+        description: "Status da equipe no sistema SIGA"
+      - name: dt_ref
+        description: "Timestamp da carga sistêmica"
+        tests:
+          - not_null
+
+  - name: int_equipes_go
+    description: "Modelo intermediate para equipes do sistema GO - processa e padroniza dados"
+    config:
+      materialized: view
+      tags: ['dimension', 'equipes', 'intermediate', 'go']
+    columns:
+      - name: prefixo
+        description: "Nome/código da equipe no sistema GO"
+        tests:
+          - not_null
+      - name: polo_id
+        description: "ID do polo (-1 se não informado)"
+        tests:
+          - not_null
+      - name: contrato_id
+        description: "ID do contrato (-1 se não informado)"
+        tests:
+          - not_null
+      - name: sistema_origem
+        description: "Sistema de origem (sempre 'GO' neste modelo)"
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['GO']
+      - name: status
+        description: "Status da equipe no sistema GO"
+      - name: tipo_equipe
+        description: "Tipo da equipe (Técnica, Comercial, etc.)"
+      - name: dt_ref
+        description: "Timestamp da carga sistêmica"
+        tests:
+          - not_null
+
+  - name: int_equipes_gstc
+    description: "Modelo intermediate para equipes do sistema GSTC - processa e padroniza dados"
+    config:
+      materialized: view
+      tags: ['dimension', 'equipes', 'intermediate', 'gstc']
+    columns:
+      - name: prefixo
+        description: "Nome/código da equipe no sistema GSTC"
+        tests:
+          - not_null
+      - name: polo_id
+        description: "ID do polo (-1 se não informado)"
+        tests:
+          - not_null
+      - name: contrato_id
+        description: "ID do contrato (-1 se não informado)"
+        tests:
+          - not_null
+      - name: sistema_origem
+        description: "Sistema de origem (sempre 'GSTC' neste modelo)"
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['GSTC']
+      - name: status
+        description: "Status da equipe no sistema GSTC"
+      - name: tipo_equipe
+        description: "Tipo da equipe (Técnica, Comercial, etc.)"
+      - name: dt_ref
+        description: "Timestamp da carga sistêmica"
+        tests:
+          - not_null
+
+  # MODELO PRINCIPAL - DIMENSÃO CONSOLIDADA
+
+  - name: dim_equipes
+    description: |
+      Dimensão consolidada de equipes de todos os sistemas.
+      **Chave única**: prefixo + sistema_origem
+      **Tratamento de nulos**: polo_id e contrato_id = -1 quando não informados
+    
+    config:
+      materialized: incremental
+      tags: ['dimension', 'equipes', 'core']
+      
+    columns:
+      - name: id
+        description: "ID único auto-incremental da equipe (sequência Snowflake)"
+        tests:
+          - unique
+          - not_null
+          
+      - name: prefixo
+        description: "Nome/código da equipe"
+        tests:
+          - not_null
+          
+      - name: polo_id
+        description: "ID do polo (FK dimensional - -1 se não informado)"
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_polos')
+                field: id
+              config:
+                where: "polo_id != -1"  
+                
+      - name: contrato_id
+        description: "ID do contrato (FK dimensional - -1 se não informado)"
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_contratos')
+                field: id
+              config:
+                where: "contrato_id != -1"  
+                
+      - name: sistema_origem
+        description: "Sistema de origem dos dados"
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['SIGA', 'GO', 'GSTC']  
+              
+      - name: status
+        description: "Status atual da equipe"
+        
+      - name: tipo_equipe
+        description: "Tipo da equipe (disponível apenas para alguns sistemas)"
+        
+      - name: nivel_completude
+        description: "Nível de completude dos dados (COMPLETO, POLO_NAO_ENCONTRADO, CONTRATO_NAO_ENCONTRADO)"
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['COMPLETO', 'POLO_NAO_ENCONTRADO', 'CONTRATO_NAO_ENCONTRADO']
+              
+      - name: dt_ref
+        description: "Timestamp da carga sistêmica"
+        tests:
+          - not_null
+
+    tests:
+      # Teste de chave única composta
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - prefixo
+              - sistema_origem
+          config:
+            severity: error
+            
+      # Teste para garantir que todos os prefixos são válidos
+      - dbt_utils.not_null_proportion:
+          arguments:
+            at_least: 1.0
+            column_name: prefixo
+          config:
+            severity: error
+
+  - name: dim_fornecedores
+    description: "Dimensão de fornecedores - dados únicos extraídos dos contratos"
+    columns:
+      - name: id
+        description: "ID único auto-incremental do fornecedor (sequência Snowflake)"
+        tests:
+          - unique
+          - not_null
+      - name: cod_fornecedor
+        description: "Código de negócio do fornecedor"
+        tests:
+          - unique
+          - not_null
+      - name: fornecedor_sap
+        description: "Nome do fornecedor no SAP"
+        tests:
+          - not_null
+      - name: dt_ref
+        description: "Timestamp da carga sistêmica"
+        tests:
+          - not_null
+
+  - name: dim_polos
+    description: "Dimensão de polos - nível hierárquico mais baixo"
+    depends_on:
+      - ref('dim_regionais')
+    columns:
+      - name: id
+        description: "ID único auto-incremental do polo (sequência Snowflake)"
+        tests:
+          - unique
+          - not_null
+      - name: cod_polo
+        description: "Código de negócio do polo"
+        tests:
+          - unique
+          - not_null
+      - name: polo
+        description: "Nome do polo"
+        tests:
+          - not_null
+      - name: cod_regional
+        description: "Código de negócio da regional (FK)"
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_regionais')
+                field: cod_regional
+      - name: regional_id
+        description: "ID da regional (FK dimensional - apenas ID incremental)"
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_regionais')
+                field: id
+      - name: dt_ref
+        description: "Timestamp da carga sistêmica"
+        tests:
+          - not_null
+
+  - name: dim_regionais
+    description: "Dimensão de regionais - nível hierárquico intermediário"
+    depends_on:
+      - ref('dim_empresas')
+    columns:
+      - name: id
+        description: "ID único auto-incremental da regional (sequência Snowflake)"
+        tests:
+          - unique
+          - not_null
+      - name: cod_regional
+        description: "Código de negócio da regional"
+        tests:
+          - not_null
+      - name: cod_empresa
+        description: "Código de negócio da empresa (FK)"
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_empresas')
+                field: cod_empresa
+      - name: empresa_id
+        description: "ID da empresa (FK dimensional - apenas ID incremental)"
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_empresas')
+                field: id
+      - name: regional
+        description: "Nome da regional"
+        tests:
+          - not_null
+      - name: dt_ref
+        description: "Timestamp da carga sistêmica"
+        tests:
+          - not_null

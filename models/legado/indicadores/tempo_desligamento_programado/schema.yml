@@ -1,0 +1,60 @@
+version: 2
+
+models:
+  - name: programadas_go
+    description: "Desligamentos programados - Goias"
+    config:
+      tags: ['production', 'desligamento', 'programado', 'go', 'legado']
+
+  - name: programadas_rs
+    description: "Desligamentos programados - Rio Grande do Sul"
+    config:
+      tags: ['production', 'desligamento', 'programado', 'rs', 'legado']
+
+  - name: programadas_fornecedor
+    description: "Desligamentos programados por fornecedor"
+    config:
+      tags: ['production', 'desligamento', 'programado', 'legado']
+
+  - name: slv_ans_desligamento_programado
+    description: |
+      Analise de desligamentos programados (PTPs).
+      Verifica se foram executados dentro do prazo previsto.
+      Calcula desvios de inicio e fim.
+    config:
+      tags: ['production', 'desligamento', 'programado', 'silver', 'legado']
+    columns:
+      - name: ocorrencia_id
+        description: "ID da ocorrencia"
+      - name: ocorrencia
+        description: "Numero da ocorrencia"
+      - name: ptp_id
+        description: "ID do PTP"
+      - name: ptp_numero
+        description: "Numero do PTP"
+      - name: natureza_programacao
+        description: "Natureza da programacao"
+      - name: empreiteira
+        description: "Empreiteira responsavel"
+      - name: area_solicitante
+        description: "Area que solicitou o desligamento"
+      - name: motivo
+        description: "Motivo do desligamento"
+      - name: tipo_intervencao
+        description: "Tipo de intervencao"
+      - name: status_ptp
+        description: "Status do PTP"
+      - name: status_ocorrencia
+        description: "Status da ocorrencia"
+      - name: inicio_previsto
+        description: "Data/hora de inicio previsto"
+      - name: fim_previsto
+        description: "Data/hora de fim previsto"
+      - name: verifica_horario
+        description: "Flag de verificacao de horario"
+      - name: desligamento_fora_prazo
+        description: "Flag indicando se foi fora do prazo (1/0)"
+      - name: desvio_inicio
+        description: "Desvio em minutos do inicio"
+      - name: desvio_fim
+        description: "Desvio em minutos do fim"

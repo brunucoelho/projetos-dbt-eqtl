@@ -1,0 +1,34 @@
+version: 2
+
+models:
+  - name: aderencia_escala
+    description: |
+      Modelo de producao para aderencia a escala.
+      Consolida dados de escalas de todos os sistemas (SIGA e GO Operacional).
+      Utiliza logica incremental com delete para o mesmo mes antes de inserir novos dados.
+    config:
+      tags: ['production', 'aderencia', 'escala', 'legado']
+    columns:
+      - name: equipe
+        description: "Nome/codigo da equipe"
+      - name: data
+        description: "Data da escala"
+      - name: polo
+        description: "Nome do polo"
+      - name: contrato
+        description: "Nome do contrato"
+      - name: empresa
+        description: "Nome da empresa"
+      - name: regional
+        description: "Nome da regional"
+      - name: fornecedor
+        description: "Nome do fornecedor"
+      - name: estado_escala
+        description: "Estado da aderencia: ADERENTE, ADIANTADO, ATRASADO, AUSENTE"
+
+  - name: aderencia_escala_gstc
+    description: |
+      Modelo de producao para aderencia a escala do sistema GSTC.
+      Dados especificos de escalas do sistema GSTC.
+    config:
+      tags: ['production', 'aderencia', 'escala', 'gstc', 'legado']

@@ -1,0 +1,95 @@
+SELECT
+	DISTINCT
+'EQTL_PA' EMPRESA,
+	c.regional,
+	c.distrital,
+	DECODE(c.seccional, 'ALMEIRIM', 'ALTAMIRA', 'PORTO DE MOZ', 'ALTAMIRA', 'URUARA', 'ALTAMIRA',
+'ANANINDEUA', 'BELEM', 'BENEVIDES', 'BELEM', 'BREVES', 'BELEM', 'ICOARACY', 'BELEM', 'SALVATERRA', 'BELEM', 'BRAGANCA', 'CAPANEMA', 'CAPITAO POCO', 'CAPANEMA', 'SALINOPOLIS', 'CAPANEMA', 'CURUCA', 'CASTANHAL', 'IGARAPE-ACU', 'CASTANHAL', 'SANTO ANTONIO DO TAUA', 'CASTANHAL', 'NOVO PROGRESSO', 'ITAITUBA',
+'RUROPOLIS', 'ITAITUBA', 'RONDON DO PARA', 'MARABA', 'SAO DOMINGOS DO ARAGUAIA', 'MARABA', 'ALENQUER', 'MONTE ALEGRE', 'FARO', 'MONTE ALEGRE', 'ORIXIMINA', 'MONTE ALEGRE', 'IPIXUNA DO PARA', 'PARAGOMINAS',
+'MAE DO RIO', 'PARAGOMINAS', 'TOME ACU', 'PARAGOMINAS', 'ULIANOPOLIS', 'PARAGOMINAS', 'ELDORADO DOS CARAJAS', 'PARAUAPEBAS', 'SANTANA DO ARAGUAIA', 'REDENCAO',
+'BELTERRA', 'SANTAREM', 'NOVO REPARTIMENTO', 'TUCURUI', 'TUCUMA', 'XINGUARA', 'ABAETETUBA', 'ABAETETUBA', 'ALTAMIRA', 'ALTAMIRA', 'BELEM', 'BELEM', 'CAPANEMA', 'CAPANEMA', 'CASTANHAL', 'CASTANHAL',
+'ITAITUBA', 'ITAITUBA', 'MARABA', 'MARABA', 'PARAGOMINAS', 'PARAGOMINAS', 'PARAUAPEBAS', 'PARAUAPEBAS', 'REDENCAO', 'REDENCAO',
+'SANTAREM', 'SANTAREM', 'TUCURUI', 'TUCURUI', 'XINGUARA', 'XINGUARA')BASE,
+	c.seccional,
+	c.municipio,
+	c.localidade,
+	n.area_estrut_regional,
+	n.conta_contrato,
+	n.instalacao,
+	n.nota,
+	vv.equipe_execucao,
+	--a.nr_visita,
+	n.tipo_nota,
+	n.texto_breve,
+	n.grupo_codes,
+	n.codificacao,
+	--a.equipe_execucao,
+	--a.grupo_medida,
+	--a.codigo_medida,
+	aa.grupo_medida,
+	aa.CODIGO_MEDIDA,
+	aa.status_medida,
+	CASE
+		WHEN n.tipo_nota = 'MG' THEN DECODE(aa.Codigo_Medida, '0001', 'APROVADA C/NECESSIDADE DE INTERLIGAÇÃO', '0003', 'VISTORIA REPROVADA', '0002', 'VISTORIA APROVADA', 'EXEC', 'EM EXECUÇÃO')
+		ELSE cd.descricao
+	END DESCRICAO,
+	'NA' MOTIVO,
+	--a.local,
+	to_char(aa.data_conclusao_medida, 'YYYYMM') mes_competencia,
+	n.data_nota,
+	n.data_criacao,
+	aa.data_criacao_medida,
+	--a.data_inicio_servico,
+	--a.data_final_servico,
+	n.inicio_desejado,
+	n.fim_desejado,
+	aa.fim_programado_medida,
+	aa.data_conclusao_medida,
+	CASE
+		WHEN aa.fim_programado_medida IS NULL THEN 'SEM PRAZO'
+		WHEN aa.data_conclusao_medida IS NULL THEN 'PENDENTE CONCLUSAO'
+		WHEN (aa.fim_programado_medida<aa.data_conclusao_medida) THEN 'ATENDIDO FORA DO PRAZO'
+		WHEN (aa.fim_programado_medida >= aa.data_conclusao_medida) THEN 'ATENDIDO NO PRAZO'
+		ELSE ''
+	END STATUS_PRAZO,
+	n.status_ccs,
+	n.financiamento_padrao,
+	current_timestamp ATUALIZACAO
+FROM
+	eqtlinfo_prd.eqtl_pa.notas_servicos n
+LEFT JOIN eqtlinfo_prd.eqtl_pa.medidas_notas_servicos aa ON
+	aa.nota = n.nota
+LEFT JOIN eqtlinfo_prd.eqtl_pa.visitas_notas vv ON
+	vv.nota = n.nota
+	AND vv.data_final_servico = aa.data_conclusao_medida
+LEFT JOIN eqtlinfo_prd.eqtl_pa.tab_regional_politica c ON
+	n.estrut_regional_politica = c.estrutura_regional_politica
+LEFT JOIN eqtlinfo_raw.oper_pa.code_medida cd ON
+	cd.code_medida_id = aa.codigo_medida
+	AND aa.grupo_medida = cd.grupo_code_medida_id
+	AND n.grupo_codes = cd.ossubtipo_id
+	--left join   owengcmr.gp_gstc_equipes2021 e on e.chave = 'MARANHAO'||A.EQUIPE_EXECUCAO 
+WHERE
+	n.tipo_nota IN ('MT', 'DS', 'LN', 'MG', 'RL', 'MM', 'TR', 'TP', 'RI', 'DR', 'IS', 'FP', 'MQ')
+    and to_char(aa.data_conclusao_medida, 'YYYYMM') = {{ get_month_ref() }}
+	AND AA.GRUPO_MEDIDA NOT IN ( 'AGDACEPV', 'CALCERD', 'ELIGACAO', 'ACEITSPA', 'AGCLSPAR', 'ANADIVIR', 'ATUALCAD', 'CONFCONF', 'CONFICAD',
+'CONFTROC', 'DIRECION', 'DIRECIOO', 'DISPONPE', 'EFETFINA', 'ELABEOST', 'ELABORSV', 'ELESORCP', 'ELESORSP', 'ESTVBTEC', 'EXECTRPT',
+'EXELIGPR', 'EXEOB120', 'EXOBRA60', 'FINAPADO', 'FUGADIVI', 'INFOREDE', 'ORÇAPTAV', 'REPRMEDI', 'SUSPOBRA', 'TRATACAN',
+'TRATATDM', 'TRATCANC', 'TRATCTIN', 'TRATEXPA', 'TRATINRE', 'TRATREJE', 'TRPDEXPA', 'VALICADA', 'VERIDESL', 'VERILEIT', 'VERIPEGD', 'EMFATFIN',
+'ANACAPAA', 'FINAPADR', 'ACEITECL', 'CADASTRO', 'ECOBRA60', 'ELABORÇA', 'EOBRA120', 'EOBRACRO', 'ESTUVTEC', 'EXECOBRA',
+'LIBERARE', 'LIGATELE', 'RETOVIAB', 'VISLNEXP', 'ACEITECL', 'CADASTRO', 'ELABORÇA', 'ESTUVTEC', 'EXECOBRA', 'LIGATELE',
+'AGUACLSP', 'ANAPROJJ', 'ATCADAST', 'ATUALGEO', 'COMCONCL', 'CONPENGD', 'COPENDEN', 'EXEOBR60', 'FLUXOCAR', 'GERAPARC', 'RECEPARC', 'REESTGGD', 'REESTUGD', 'REGNPRO', 'RORCERD', 'VALINIGD',
+'AUTORELI', 'AGCLCPAR', 'EXOBR120', 'SUSSVIAB', 'EXOBRCRO', 'AGDCO120', 'AGCORCRG', 'UNIVERS', 'AGCORR60', 'INFCLIOB',
+'CORRE120', 'ACEITCPA', 'EXECCRO', 'TRANSFAR', 'CORREC60', 'PAGCPART', 'GERABOCA', 'VISALTBR', 'VISALTCO')
+	AND n.grupo_codes NOT IN ('DSBTREMO', 'DSDEFFAT', 'DSTEMPAT', 'LIGEMUC', 'LIGNOVRE', 'LNMICRGD', 'LNMINIGD')
+	AND n.codificacao NOT IN ('CMRE', 'LNGA', 'PLPT', 'REDF')
+/*
+	AND N.TIPO_NOTA || N.GRUPO_CODES NOT IN ('MGACESMNGD', 'DSDSBTREMO', 'DSDSDEFFAT', 'DSDSPEDEMP', 'DSDSTEMPAT', 'ISINSPCOME', 'LNLIGEATBT',
+'LNLIGEMUC', 'LNLIGNOVAT', 'LNLIGNOVRE')
+	AND N.TIPO_NOTA || N.GRUPO_CODES || AA.GRUPO_MEDIDA NOT IN ('LNREATIVACEXECOBA', 'LNLIGANOVAACEITECL',
+'LNLIGANOVAACEITSPA', 'MGACESMCGDATCADAST', 'LNLIGANOVACADASTRO', 'LNREATIVACCADASTRO', 'MGACESMCGDCOPENDEN', 'LNLIGANOVAECOBRA60', 'LNLIGNOVBTEFECADAS', 'LNLIGANOVAELABEOST',
+'LNLIGNOVBTELABORSV', 'LNLIGANOVAEOBRA120', 'LNLIGANOVAESTUVTEC', 'LNREATIVACESTUVTEC', 'LNLIGANOVAEXECOBRA', 'LNLIGANOVALIBERARE', 'LNLIGPROVVALICADA', 'LNLIGANOVAVISLNEXP',
+'LNLIGNOVBTVISLNEXP')
+	AND N.TIPO_NOTA || AA.GRUPO_MEDIDA NOT IN('FPCORRE120', 'FPLIBERARE', 'TRVALICADA', 'FPVISLNEXP', 'FPVISTORIA', 'MGAGUACLSP', 'MGANAPROJJ', 'MGFLUXOCAR', 'MGGERAPARC',
+ 'MGRECEPARC', 'MGREESTUGD', 'MGRORCERD', 'MGVALINIGD', 'MGATUALGEO', 'MGCOMCONCL', 'MGEXEOBR60', 'MGREGNPRO', 'VERIPEGD', 'LNCADASTRO', 'LNTREJEICA')
+*/

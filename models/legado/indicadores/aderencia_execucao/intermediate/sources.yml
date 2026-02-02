@@ -1,0 +1,36 @@
+version: 2
+
+sources:
+  - name: siprog
+    description: >
+      Sistema de Programação (SIPROG) - Base de dados com informações de programação
+      de obras, equipes, empreiteiras e execução de serviços.
+    database: EQTLINFO_RAW
+    schema: SIPROG
+    tables:
+      - name: AGRUPADOR_VALOR
+        description: Tabela de valores de agrupadores (dimensões auxiliares)
+        
+      - name: AGRUPADOR
+        description: Tabela de agrupadores (categorias e empresas)
+        
+      - name: EMPREITEIRA
+        description: Cadastro de empreiteiras e contratos
+        
+      - name: EQUIPE
+        description: Cadastro de equipes de trabalho
+        
+      - name: PROGRAMACAO
+        description: >
+          Tabela principal com as programações de obras e serviços,
+          incluindo datas, status, equipes, orçamentos e execução.
+
+  - name: eqtl_corp
+    description: >
+      Esquema corporativo EQTL com dimensões e tabelas auxiliares consolidadas.
+    database: SB_PERFORMANCE
+    schema: EQTL_CORP
+    tables:
+      - name: SIPROG_OURO__VIEW__DIM_TEMPO
+        description: Dimensão de tempo/calendário para análises temporais
+

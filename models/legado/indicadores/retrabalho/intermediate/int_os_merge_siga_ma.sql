@@ -1,0 +1,36 @@
+{{ config(
+    materialized='table'
+) }}
+
+
+SELECT * FROM {{ ref('int_os_emergencial_siga_ma') }}
+UNION ALL
+SELECT * FROM {{ ref('int_os_comercial_siga_ma') }}
+UNION ALL
+SELECT 
+    EMPRESA,
+    TO_TIMESTAMP(DATA_CARGA),
+    OCO_DATA_CONCLUSAO,
+    LATITUDE,
+    LONGITUDE,
+    BAIRRO,
+    ABRANGENCIA,
+    TRY_TO_NUMBER(OS_OPER::STRING) AS OS_OPER,
+    OS,
+    OSTIPO,
+    OSSUBTIPO,
+    MUNICIPIO,
+    LOCALIDADE,
+    TO_CHAR(UC),
+    PREFIXO,
+    REGISTRO_EXEC,
+    COMPONENTE_DANIFICADO,
+    TRY_TO_NUMBER(TB_DEFEITO_ID::STRING) AS TB_DEFEITO_ID,
+    TRY_TO_NUMBER(COD_CONCLUSAO::STRING) AS COD_CONCLUSAO,
+    TIPO_CONCLUSAO,
+    COD_SUBCAUSA,
+    SUBCAUSA,
+    TIPO,
+    REGIONAL,
+    DATA_ORIGEM  
+FROM {{ ref('int_os_comercial_perdas_ma') }}

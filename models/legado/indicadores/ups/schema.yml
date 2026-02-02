@@ -1,0 +1,169 @@
+version: 2
+
+models:
+  - name: kpi_ups
+    description: |
+      KPI de Unidade de Produtividade de Servico (UPS).
+      Indicador principal de produtividade das equipes de campo.
+      Consolidado por empresa, regional, polo e fornecedor.
+    config:
+      tags: ['production', 'kpi', 'ups', 'legado']
+    columns:
+      - name: indicador
+        description: "Nome do indicador"
+      - name: empresa
+        description: "Codigo da empresa"
+        tests:
+          - not_null
+      - name: regional_prx
+        description: "Regional do prefixo"
+      - name: polo_prx
+        description: "Polo do prefixo"
+      - name: fornecedor
+        description: "Nome do fornecedor"
+      - name: contrato
+        description: "Nome do contrato"
+      - name: ano_concl
+        description: "Ano de conclusao"
+      - name: competencia
+        description: "Competencia (YYYYMM)"
+        tests:
+          - not_null
+      - name: resultado
+        description: "Resultado UPS"
+      - name: nivel
+        description: "Nivel de agregacao"
+      - name: descricao
+        description: "Descricao do indicador"
+      - name: meta
+        description: "Meta estabelecida"
+      - name: polaridade
+        description: "Polaridade (maior melhor)"
+
+  - name: ups_diario
+    description: |
+      UPS detalhado por dia.
+      Inclui TME, TMD, TMA e valores de UPS por turno.
+    config:
+      tags: ['production', 'ups', 'diario', 'legado']
+    columns:
+      - name: empresa
+        description: "Codigo da empresa"
+        tests:
+          - not_null
+      - name: qtd
+        description: "Quantidade de servicos"
+      - name: regional
+        description: "Regional"
+      - name: base
+        description: "Base operacional"
+      - name: perimetro
+        description: "Perimetro de atuacao"
+      - name: equipe
+        description: "Codigo/prefixo da equipe"
+      - name: ostipo_id
+        description: "ID do tipo de OS"
+      - name: ossubtipo_id
+        description: "ID do subtipo de OS"
+      - name: turno
+        description: "Turno de trabalho"
+      - name: competencia
+        description: "Competencia (YYYYMM)"
+      - name: regional_prx
+        description: "Regional do prefixo"
+      - name: polo_prx
+        description: "Polo do prefixo"
+      - name: fornecedor
+        description: "Nome do fornecedor"
+      - name: tipo_eqp
+        description: "Tipo de equipe"
+      - name: processo_prx
+        description: "Processo do prefixo"
+      - name: serv_campo
+        description: "Servico de campo"
+      - name: tme
+        description: "Tempo Medio de Execucao"
+      - name: tmd
+        description: "Tempo Medio de Deslocamento"
+      - name: tma
+        description: "Tempo Medio de Atendimento"
+      - name: valor_ups
+        description: "Valor UPS do servico"
+      - name: resultado_ups
+        description: "Resultado UPS calculado"
+
+  - name: ups_mensal
+    description: |
+      UPS consolidado por mes e equipe.
+      Inclui classificacao MEPE baseada na aderencia a meta.
+    config:
+      tags: ['production', 'ups', 'mensal', 'legado']
+    columns:
+      - name: empresa
+        description: "Codigo da empresa"
+        tests:
+          - not_null
+      - name: regional_prx
+        description: "Regional do prefixo"
+      - name: polo_prx
+        description: "Polo do prefixo"
+      - name: fornecedor
+        description: "Nome do fornecedor"
+      - name: equipe
+        description: "Codigo/prefixo da equipe"
+        tests:
+          - not_null
+      - name: processo_prx
+        description: "Processo do prefixo"
+      - name: tipo_eqp
+        description: "Tipo de equipe"
+      - name: serv_campo
+        description: "Servico de campo"
+      - name: competencia
+        description: "Competencia (YYYYMM)"
+        tests:
+          - not_null
+      - name: realizado_mensal
+        description: "UPS realizado no mes"
+      - name: meta_mensal
+        description: "Meta de UPS para o mes"
+      - name: dias_uteis
+        description: "Quantidade de dias uteis"
+      - name: turnos
+        description: "Quantidade de turnos trabalhados"
+      - name: media_ups_mes
+        description: "Media de UPS no mes"
+      - name: aderencia_meta
+        description: "Percentual de aderencia a meta"
+      - name: classe_mepe_ups
+        description: "Classificacao MEPE baseada no UPS: A, B, C ou D"
+
+  - name: ups_mensal_turnos
+    description: "UPS mensal detalhado por turnos"
+    config:
+      tags: ['production', 'ups', 'mensal', 'turnos', 'legado']
+
+  - name: resumo_ups
+    description: "Resumo consolidado de UPS"
+    config:
+      tags: ['production', 'ups', 'resumo', 'legado']
+
+  - name: serv_exec_detalhado
+    description: "Servicos executados detalhados - versao 1"
+    config:
+      tags: ['production', 'ups', 'servicos', 'legado']
+
+  - name: serv_exec_detalhado2
+    description: "Servicos executados detalhados - versao 2"
+    config:
+      tags: ['production', 'ups', 'servicos', 'legado']
+
+  - name: slv_ans_ups_stc
+    description: "Silver layer - ANS UPS STC"
+    config:
+      tags: ['production', 'ups', 'silver', 'stc', 'legado']
+
+  - name: kpi_desnv_ups
+    description: "KPI de desenvolvimento UPS"
+    config:
+      tags: ['production', 'kpi', 'ups', 'desenvolvimento', 'legado']
