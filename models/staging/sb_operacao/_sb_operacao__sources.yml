@@ -1,0 +1,44 @@
+version: 2
+
+sources:
+  - name: sb_operacao_al
+    database: sb_operacao
+    schema: operacao_al
+    tables:
+      - name: gestao_dec_fec_al
+
+  - name: sb_operacao_ap
+    database: sb_operacao
+    schema: operacao_ap
+    tables:
+      - name: gestao_dec_fec_ap
+
+  - name: sb_operacao_ma
+    database: sb_operacao
+    schema: operacao_ma
+    tables:
+      - name: gestao_dec_fec_ma
+
+  - name: sb_operacao_pa
+    database: sb_operacao
+    schema: operacao_pa
+    tables:
+      - name: gestao_dec_fec_pa
+
+  - name: sb_operacao_pi
+    database: sb_operacao
+    schema: operacao_pi
+    tables:
+      - name: gestao_dec_fec_pi
+
+  - name: sb_operacao_rs
+    database: sb_operacao
+    schema: operacao_rs
+    tables:
+      - name: gestao_dec_fec_rs
+
+  - name: sb_operacao_go
+    database: sb_operacao
+    schema: operacao_go
+    tables:
+      - name: gestao_dec_fec_go

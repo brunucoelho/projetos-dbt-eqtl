@@ -1,0 +1,24 @@
+with source as (
+select
+  PREFIXO_TURMA_ID,
+  BASE_ID,
+  EMPREITEIRA_ID,
+  PRX_DESCRICAO,
+  PRX_STATUS,
+  SYNC_PDA,
+  PRX_FIMTURNO,
+  TIPO_EQUIPE,
+  LASTUPDATE,
+  PREFIXO_SERVICO_ID,
+  PRX_VIRTUAL,
+  PARTICIPA_ESCALA,
+  POLIGONO_ID,
+  FLG_AUTENTICA,
+  FLG_DOWNLOAD,
+  PREFIXO_OFS,
+  INTERVALOAUTOMATICO,
+  CODIGO_BOP
+  from {{ source('oper_ma','prefixo_turma') }}
+)
+
+select * from source

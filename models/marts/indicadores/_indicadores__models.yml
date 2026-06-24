@@ -1,0 +1,6 @@
+version: 2
+
+models:
+  - name: fct_primeira_visita
+  - name: fct_prazo_anexo_4_sap
+  - name: fct_retrabalho_global

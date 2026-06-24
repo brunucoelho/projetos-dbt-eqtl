@@ -1,0 +1,94 @@
+version: 2
+
+models:
+  - name: stg_oper_go__conclui_os_comercial
+    columns:
+      - name: cd_movto_os_comercial
+        tests:
+          - not_null
+          - unique
+  - name: stg_oper_go__code_medida
+    columns:
+      - name: cdm_id
+        tests:
+          - not_null
+          - unique
+  - name: stg_oper_go__historico_turma_plantao
+    columns:
+      - name: hist_turma_plantao_id
+        tests:
+          - not_null
+          - unique
+  - name: stg_oper_go__prefixo_turma
+    columns:
+      - name: prefixo_turma_id
+        tests:
+          - not_null
+          - unique
+  - name: stg_oper_go__turma_os_comercial
+    columns:
+      - name: hist_os_turma_id
+        tests:
+          - not_null
+          - unique
+  - name: stg_oper_go__movto_os_comercial
+    columns:
+      - name: cd_movto_os_comercial
+        tests:
+          - not_null
+          - unique
+  - name: stg_oper_go__base
+    columns:
+      - name: base_id
+        tests:
+          - not_null
+          - unique
+  - name: stg_oper_go__ponto_apoio
+    columns:
+      - name: codigo_pa
+        tests:
+          - not_null
+          - unique
+  - name: stg_oper_go__regiao_eletrica
+    columns:
+      - name: reg_eletrica_id
+        tests:
+          - not_null
+          - unique
+  - name: stg_oper_go__localidade
+    columns:
+      - name: lc_id
+        tests:
+          - not_null
+          - unique
+  - name: stg_oper_go__atribui_os_comercial
+    columns:
+      - name: atribuicao_os_id
+        tests:
+          - not_null
+          - unique
+  - name: stg_oper_go__bairro
+    columns:
+      - name: bairro_id
+        tests:
+          - not_null
+          - unique
+  - name: stg_oper_go__municipio
+    columns:
+      - name: mnc_id
+        tests:
+          - not_null
+          - unique
+  - name: stg_oper_go__subtipo_de_os
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - ostipo_id
+              - ossubtipo_id
+  - name: stg_oper_go__tipo_de_os
+    columns:
+      - name: ostipo_id
+        tests:
+          - not_null
+          - unique

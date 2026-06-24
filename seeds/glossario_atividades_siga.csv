@@ -1,0 +1,165 @@
+ID|STATUS|NOME_DO_TIPO_DE_ATIVIDADE|ROTULO|GRUPO|TIPO
+7|Ativa|SUSPFORN - Corte|SUSPFORN|[CT] - Corte/Suspensão de Fornecimento|SERV
+49|Ativa|CTD - Corte 1 A 4|CTD|[CT] - Corte/Suspensão de Fornecimento|SERV
+50|Ativa|CTP - Acima de 4|CTP|[CT] - Corte/Suspensão de Fornecimento|SERV
+51|Ativa|CTI - Corte Inspeção|CTI|[CT] - Corte/Suspensão de Fornecimento|SERV
+188|Ativa|SPDEFTEC - Suspensão por deficiência técnica|SPDEFTEC|[CT] - Corte/Suspensão de Fornecimento|SERV
+29|Ativa|DESLORAM - Deslocamento de Ramal|DESLORAM|[DR] - Deslocamento de Ramal|SERV
+9|Ativa|DSBTPDCL - Desligamento De Unidade Consumidora|DSBTPDCL|[DS] - Desligamento|SERV
+10|Ativa|DSBTPROV - Desligamento por Ligação Provisória|DSBTPROV|[DS] - Desligamento|SERV
+52|Ativa|DSPROVAT - Desligamento Por Ligação Provisória At|DSPROVAT|[DS] - Desligamento|SERV
+53|Ativa|DSTEMPOR - Desligamento Temporário|DSTEMPOR|[DS] - Desligamento|SERV
+54|Ativa|DSPEDEMP - Desligamento Temporario|DSPEDEMP|[DS] - Desligamento|SERV
+55|Ativa|DESL - Desligamento|DESL|[DS] - Desligamento|SERV
+68|Inativo|FS_ALVOS - Fiscalização Alvos|FS_ALVOS|[FS] - Fiscalização|SERV
+69|Inativo|FS_DS - Fiscalização Ds|FS_DS|[FS] - Fiscalização|SERV
+70|Inativo|FS_JUDICIAL - Fiscalização Judicial / Aferição|FS_JUDICIAL|[FS] - Fiscalização|SERV
+71|Inativo|FS_VOLUNTARIO - Fiscalização Voluntaria|FS_VOLUNTARIO|[FS] - Fiscalização|SERV
+72|Inativo|FS_PROJETOS - Fiscalização Projetos * (Smc / Guama)|FS_PROJETOS|[FS] - Fiscalização|SERV
+73|Ativa|RETOCAMP_ALVO - Fiscalização Alvos|RETOCAMP_ALVO|[FS] - Fiscalização|SERV
+74|Ativa|RETOCAMP_CLANDESTINO - Fiscalizacao Clandestino|RETOCAMP_CLANDESTINO|[FS] - Fiscalização|SERV
+75|Ativa|RETOCAMP_DS - Fiscalização Ds|RETOCAMP_DS|[FS] - Fiscalização|SERV
+76|Ativa|RETOCAMP_JUDICIAL - Fiscalização Judicial / Aferição|RETOCAMP_JUDICIAL|[FS] - Fiscalização|SERV
+77|Ativa|RETOCAMP_VOLUNTARIA - Fiscalização Voluntaria|RETOCAMP_VOLUNTARIA|[FS] - Fiscalização|SERV
+78|Ativa|RETOCAMP_PROJETOS - Fiscalização Projetos * (Smc / Guama)|RETOCAMP_PROJETOS|[FS] - Fiscalização|SERV
+79|Ativa|FISCAVUL_VOLUNTARIA - Fiscalização VoluntariaFISCAVUL_VOLUNTARIA - Fiscalização Voluntaria|FISCAVUL_VOLUNTARIA|[FS] - Fiscalização|SERV
+80|Ativa|FISCAVUL_PROJETOS - Fiscalização Projetos * (Smc / Guama)|FISCAVUL_PROJETOS|[FS] - Fiscalização|SERV
+81|Ativa|FISCAVUL_CLANDESTINO - Fiscalizacao Clandestino|FISCAVUL_CLANDESTINO|[FS] - Fiscalização|SERV
+42|Ativa|INSPTECN - Inspeção Técnica|INSPTECN|[IS] - Inspeção Técnica|SERV
+83|Ativa|INSPCOME - Inspeção Comercial|INSPCOME|[IS] - Inspeção Técnica|SERV
+12|Ativa|LIGNOVBT - Ligação Nova|LIGNOVBT|[LN] - Ligação Nova|SERV
+13|Ativa|LIGPROVI - Ligação Provisória|LIGPROVI|[LN] - Ligação Nova|SERV
+14|Ativa|LIGREATI - Ligação Nova - Reativação|LIGREATI|[LN] - Ligação Nova|SERV
+56|Ativa|LIG - Ligação De Unidade Consumidora|LIG|[LN] - Ligação Nova|SERV
+82|Ativa|VIST - Vistoria P/ Ligação|VIST|[LN] - Ligação Nova|SERV
+84|Ativa|LIGSISOL - Ligação Nova Sistema Isolado|LIGSISOL|[LN] - Ligação Nova|SERV
+85|Ativa|ENEREMUC - Energização EMUC|ENEREMUC|[LN] - Ligação Nova|SERV
+124|Ativa|LIGANOVA - Ligação Nova|LIGANOVA|[LN] - Ligação Nova|SERV
+125|Ativa|REATIVAC - Ligação Nova - Reativação|REATIVAC|[LN] - Ligação Nova|SERV
+18|Ativa|ALMODTAR - Alteração de Modalidade Tarifária BT|ALMODTAR|[M1] - Alteração de Modalidade Tarifária|SERV
+16|Ativa|MUDMEDLC - Mudança de Medidor de Local|MUDMEDLC|[MM] - Mudança de Medidor de Local|SERV
+137|Ativa|MDQUALAM - Medicao De Qualidade Amostral Aneel|MDQUALAM|[MQ] - Medição de Qualidade|SERV
+138|Ativa|MDQUALCL - Medicao De Qld Permanente Por Sol. Do Cliente|MDQUALCL|[MQ] - Medição de Qualidade|SERV
+57|Ativa|MISTEC - Miscelanea Técnica|MISTEC|[MT] - Miscelânea Técnica|SERV
+58|Ativa|MTAFERMED - Afericao De Medidor|MTAFERMED|[MT] - Miscelânea Técnica|SERV
+59|Ativa|MS - Mudanca De Medidor|MS|[MT] - Miscelânea Técnica|SERV
+140|Ativa|MT - Inspecao de Alimentador|INSPALIM|[MT] - Miscelânea Técnica|SERV
+60|Ativa|SEMFLENG - Serviço Emergencial-Falta de Energia|SEMFLENG|[NR] - Nota de Reclamação Técnica Emergencial|SERV
+86|Ativa|SEVEMFAE - Serviço Emergencial-Falta Energia|SEVEMFAE|[NR] - Nota de Reclamação Técnica Emergencial|SERV
+20|Ativa|NIVELTEN - Nível de Tensão|NIVELTEN|[NT] - Nível de Tensão|SERV
+21|Ativa|NIVTREIN - Nível de Tensão Reincidente|NIVTREIN|[NT] - Nível de Tensão|SERV
+190|Ativa|ORCNXBTN - Orçamento de Conexão BT|ORCNXBTN|[OC] - Orçamento de Conexão BT|SERV
+5|Ativa|PDARVOBT - Poda de Árvore BT|PDARVOBT|[PA] - Poda de Árvore|SERV
+139|Ativa|PDARVOMT - Poda de Árvore MT|PDARVOMT|[PA] - Poda de Árvore|SERV
+30|Ativa|RECMATEN - Reclamação Sobre Atendimento|RECMATEN|[RC] - Reclamação do Cliente|SERV
+31|Ativa|RECMVRCO - Variação de Consumo|RECMVRCO|[RC] - Reclamação do Cliente|SERV
+32|Ativa|RECMPRAZ - Reclamação Sobre Prazo|RECMPRAZ|[RC] - Reclamação do Cliente|SERV
+33|Ativa|RECMSUIN - Reclamação Sobre Suspensão Indevida|RECMSUIN|[RC] - Reclamação do Cliente|SERV
+34|Ativa|RECMFATU - Reclamação de Fatura|RECMFATU|[RC] - Reclamação do Cliente|SERV
+35|Ativa|RECMOUTR - Reclamação Outros|RECMOUTR|[RC] - Reclamação do Cliente|SERV
+36|Ativa|RECMALTC - Reclamação de Alteração Cadastral|RECMALTC|[RC] - Reclamação do Cliente|SERV
+37|Ativa|RECMCUST - Reclamação de Custo de Disponibilidade|RECMCUST|[RC] - Reclamação do Cliente|SERV
+38|Ativa|RECMERLT - Reclamação Sobre Erro de Leitura|RECMERLT|[RC] - Reclamação do Cliente|SERV
+39|Ativa|RECMLIUC - Reclamação Sobre Problemas de Inst. Interna na UC|RECMLIUC|[RC] - Reclamação do Cliente|SERV
+40|Ativa|RECLCUST - Custo de Disponibilidade|RECLCUST|[RC] - Reclamação do Cliente|SERV
+41|Ativa|RECMATAR - Reclamação de Tarifa|RECMATAR|[RC] - Reclamação do Cliente|SERV
+61|Ativa|RECMFAAT - Reclamação de Fatura|RECMFAAT|[RC] - Reclamação do Cliente|SERV
+62|Ativa|RECMERAT - Reclamação Sobre Erro de Leitura|RECMERAT|[RC] - Reclamação do Cliente|SERV
+89|Ativa|RECLFAAT - Reclamação Sobre Fatura|RECLFAAT|[RC] - Reclamação do Cliente|SERV
+90|Ativa|RECLOUAT - Reclamação Sobre Outros|RECLOUAT|[RC] - Reclamação do Cliente|SERV
+91|Ativa|RECLATAT - Reclamação Sobre Atendimento|RECLATAT|[RC] - Reclamação do Cliente|SERV
+92|Ativa|RECLSUAT - Reclamação Sobre Suspensão Indevida|RECLSUAT|[RC] - Reclamação do Cliente|SERV
+93|Ativa|REATACAT - Cobrança Indevida De Atividade Acessória|REATACAT|[RC] - Reclamação do Cliente|SERV
+94|Ativa|RECLPRAT - Reclamação Sobre Prazos|RECLPRAT|[RC] - Reclamação do Cliente|SERV
+95|Ativa|RECLFATU - Reclamação Sobre Fatura|RECLFATU|[RC] - Reclamação do Cliente|SERV
+96|Ativa|RECLOUTR - Reclamação Sobre Outros|RECLOUTR|[RC] - Reclamação do Cliente|SERV
+97|Ativa|RECLATEN - Reclamação Sobre Atendimento|RECLATEN|[RC] - Reclamação do Cliente|SERV
+98|Ativa|RECLSUIN - Reclamação Sobre Suspensão Indevida|RECLSUIN|[RC] - Reclamação do Cliente|SERV
+99|Ativa|RECLATAC - Cobrança Indevida De Atividade Acessória|RECLATAC|[RC] - Reclamação do Cliente|SERV
+100|Ativa|RECLPRAZ - Reclamação Sobre Prazos|RECLPRAZ|[RC] - Reclamação do Cliente|SERV
+101|Ativa|RECPLIUC - Reclamação Sobre Problema De Instal. Interna Na UC|RECPLIUC|[RC] - Reclamação do Cliente|SERV
+102|Ativa|RECLATAR - Reclamação De Tarifa|RECLATAR|[RC] - Reclamação do Cliente|SERV
+103|Ativa|RECLVRCO - Variação De Consumo|RECLVRCO|[RC] - Reclamação do Cliente|SERV
+104|Ativa|RECLERLT - Reclamação Sobre Erro De Leitura|RECLERLT|[RC] - Reclamação do Cliente|SERV
+105|Ativa|RECLALTC - Reclamação De Alteração Cadastral|RECLALTC|[RC] - Reclamação do Cliente|SERV
+106|Ativa|RECLAPFT - Reclamação Sobre Apresentação - Entrega De Fatura|RECLAPFT|[RC] - Reclamação do Cliente|SERV
+107|Ativa|RECMINDS - Indisponib.Canais Atend/Arrecadação|RECMINDS|[RC] - Reclamação do Cliente|SERV
+108|Ativa|RECMATAC - Cobrança Indevida De Atividade Acessória|RECMATAC|[RC] - Reclamação do Cliente|SERV
+109|Ativa|RECMAPFT - Apresentação / Entrega De Fatura|RECMAPFT|[RC] - Reclamação do Cliente|SERV
+110|Ativa|RECMCOIN - Cobrança Por Irregularida|RECMCOIN|[RC] - Reclamação do Cliente|SERV
+111|Ativa|RECMVRAT - Variação De Consumo|RECMVRAT|[RC] - Reclamação do Cliente|SERV
+112|Ativa|RECMACAT - Cobrança Indevida De Atividade Acessória|RECMACAT|[RC] - Reclamação do Cliente|SERV
+113|Ativa|RECMALAT - Reclamação De Alteração Cadastral|RECMALAT|[RC] - Reclamação do Cliente|SERV
+114|Ativa|RECMAPAT - Apresentação / Entrega De Fatura|RECMAPAT|[RC] - Reclamação do Cliente|SERV
+115|Ativa|RECMATAT - Reclamação Sobre Atendimento|RECMATAT|[RC] - Reclamação do Cliente|SERV
+116|Ativa|RECMCUAT - Custo De Disponibilidade|RECMCUAT|[RC] - Reclamação do Cliente|SERV
+117|Ativa|RECMINAT - Indisponib.Canais Atend/Arrecadação|RECMINAT|[RC] - Reclamação do Cliente|SERV
+118|Ativa|RECMLIAT - Reclamação Sobre Problemas De Instalação Int Na UC|RECMLIAT|[RC] - Reclamação do Cliente|SERV
+119|Ativa|RECMOUAT - Reclamação Outros|RECMOUAT|[RC] - Reclamação do Cliente|SERV
+120|Ativa|RECMPRAT - Reclamação Sobre Prazos|RECMPRAT|[RC] - Reclamação do Cliente|SERV
+121|Ativa|RECMSUAT - Reclamação Sobre Suspensão Indevida|RECMSUAT|[RC] - Reclamação do Cliente|SERV
+122|Ativa|RECMTAAT - Reclamação De Tarifa|RECMTAAT|[RC] - Reclamação do Cliente|SERV
+43|Ativa|RELIGAAT - Religação de Alta Tensão|RELIGAAT|[RL] - Religação|SERV
+44|Ativa|RELIGABT - Religação de Baixa Tensão|RELIGABT|[RL] - Religação|SERV
+63|Ativa|RELIGARM - Religação Remota|RELIGARM|[RL] - Religação|SERV
+64|Ativa|RELIG - Religação|RELIG|[RL] - Religação|SERV
+87|Ativa|RELIGASI - Religação Sistema Isolado|RELIGASI|[RL] - Religação|SERV
+88|Ativa|RELIGABD - Religação - Blindado|RELIGABD|[RL] - Religação|SERV
+45|Ativa|TROCPABT - Troca Padrão Baixa Tensão (BT)|TROCPABT|[TR] - Troca de Padrão / Equipamento|SERV
+46|Ativa|TROCPAOT - Troca Padrão Com Opção Tarifária Baixa Tensão (BT)|TROCPAOT|[TR] - Troca de Padrão / Equipamento|SERV
+65|Ativa|TROPADBT - Troca De Padrão - Bt|TROPADBT|[TR] - Troca de Padrão / Equipamento|SERV
+66|Ativa|TROPACMB - Troca De Padrão Com Acréscimo|TROPACMB|[TR] - Troca de Padrão / Equipamento|SERV
+67|Ativa|TROPAREM - Troca De Padrão Remota|TROPAREM|[TR] - Troca de Padrão / Equipamento|SERV
+126|Inativo|Indisponibilidade_old|Indisponibilidade_old|Interno|INDISP
+132|Ativa|Indisponibilidade|Indisponibilidade|Interno|INDISP
+2|Ativa|Intervalo para almoço|INTERVALO|Interno|INTERV
+130|Ativa|Atividade pré Atribuída|RESERVA|Autotrac|RESERVA
+131|Ativa|Atividade pré Atribuída - MT|RESERVA_MT|Autotrac|RESERVA
+152|Ativa|Ponto Central para Consulta Offline|OFFLINE|Atividades de Fiscalização|ROTINA
+1|Inativo|Atividade Genérica {renomear ou desativar}|GenericActivity|Cliente|ROTINA
+142|Ativa|Inspeção em Depósito Técnico|INSP_DEP_TEC|Gestão de inventários, inspeção e roteirização|ROTINA
+143|Ativa|Inspeção Centro de distribuição|INSP_CDISTRI|Gestão de inventários, inspeção e roteirização|ROTINA
+144|Ativa|Inspeção Obra|INSP_OBRA|Gestão de inventários, inspeção e roteirização|ROTINA
+145|Ativa|Inspeção Subestação|INSP_SUBSTACAO|Gestão de inventários, inspeção e roteirização|ROTINA
+146|Ativa|Inventário Geral|INV_GERAL|Gestão de inventários, inspeção e roteirização|ROTINA
+147|Ativa|Inventário Rotativo|INV_ROTATIVO|Gestão de inventários, inspeção e roteirização|ROTINA
+148|Ativa|Levantamento/ Mapeamento|LevantamentoMapeamento|Gestão de inventários, inspeção e roteirização|ROTINA
+149|Ativa|Inspeção Almoxarifado|INSP_ALMOX|Gestão de inventários, inspeção e roteirização|ROTINA
+123|Inativo|Troca de Turno|TrocaTurno|Interno|ROTINA
+128|Ativa|Teamwork|TW|Interno|ROTINA
+163|Ativa|Outros Processos|Outros_Processos|Interno|ROTINA
+164|Ativa|Checklist Início do Turno|CHECKLIST|Interno|ROTINA
+171|Ativa|Carga e Descarga de Materiais|CARGA_DESCARGA|Interno|ROTINA
+135|Ativa|Warehouse Visit|WarehouseVisit|Warehouse Visits|ROTINA
+154|Ativa|Fiscalização|FS|Atividades de Fiscalização|SERV
+153|Ativa|Pré-Inspeção|PREINSP|Atividades de Pré-Inspeção|SERV
+174|Ativa|Alteração Contratual AT|GRA_AT|Grupo A|SERV
+175|Ativa|Desligamento AT|GRA_DS|Grupo A|SERV
+176|Ativa|Ligação Nova AT|GRA_LN|Grupo A|SERV
+177|Ativa|Alteração de Modalidade Tarifaria AT|GRA_MT|Grupo A|SERV
+178|Ativa|Micro e Mini Geração AT|GRA_MG|Grupo A|SERV
+179|Ativa|Telemedição AT|GRA_TM|Grupo A|SERV
+180|Ativa|Benefício AT|GRA_BN|Grupo A|SERV
+181|Ativa|Cliente Livre AT|GRA_LV|Grupo A|SERV
+182|Ativa|Orçamento e Conexão AT|GRA_OC|Grupo A|SERV
+183|Ativa|Inspeção AT|GRA_IS|Grupo A|SERV
+184|Ativa|Leitura AT|GRA_LA|Grupo A|SERV
+185|Ativa|Fiscalização AT|GRA_FS|Grupo A|SERV
+186|Ativa|Alteração de Lacre AT|GRA_AL|Grupo A|SERV
+187|Ativa|Saída do Usário AT|GRA_SU|Grupo A|SERV
+127|Inativo|Manobra_old|Manobra_old|Interno|SERV
+133|Ativa|Manobra|Manobra|Interno|SERV
+165|Ativa|Assistência NR|AUX_NR|Interno|SERV
+168|Ativa|Assistência SP|AUX_SP|Interno|SERV
+169|Ativa|Obras|OBRAS|Interno|SERV
+156|Ativa|Linha Viva|LV|Manutenção|SERV
+157|Ativa|Linha Morta|LM|Manutenção|SERV
+158|Ativa|Poda|PO|Manutenção|SERV
+159|Ativa|Qualidade e Equipamento|QL|Manutenção|SERV
+160|Ativa|TAT|TT|Manutenção|SERV
+161|Ativa|Limpeza de Faixa|LF|Manutenção|SERV
+162|Ativa|Lavagem|LG|Manutenção|SERV
+167|Ativa|Plano de Manobra|planoManobra|Plano de Manobra|SERV
+9999|Ativa|REVISAR|OBRAS_MANUT|REVISAR|SERV
+999999|Ativa|REVISAR|TMCONCEN|REVISAR|SERV
+99999|Ativa|Retorno à base|Fim_de_Turno|REVISAR|RETORNO

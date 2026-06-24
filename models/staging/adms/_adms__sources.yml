@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: adms
+    database: eqtlinfo_raw
+    schema: adms
+    tables:
+      - name: oms_inc_incident

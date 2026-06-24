@@ -1,0 +1,57 @@
+version: 2
+
+models:
+  - name: stg_oper_pa__conclui_os_comercial
+    columns:
+      - name: cd_movto_os_comercial
+        tests:
+          - not_null
+          - unique
+  - name: stg_oper_pa__code_medida
+    columns:
+      - name: cdm_id
+        tests:
+          - not_null
+          - unique
+  - name: stg_oper_pa__historico_turma_plantao
+    columns:
+      - name: hist_turma_plantao_id
+        tests:
+          - not_null
+          - unique
+  - name: stg_oper_pa__prefixo_turma
+    columns:
+      - name: prefixo_turma_id
+        tests:
+          - not_null
+          - unique
+  - name: stg_oper_pa__turma_os_comercial
+    columns:
+      - name: hist_os_turma_id
+        tests:
+          - not_null
+          - unique
+  - name: stg_oper_pa__movto_os_comercial
+    columns:
+      - name: cd_movto_os_comercial
+        tests:
+          - not_null
+          - unique
+  - name: stg_oper_pa__base
+    columns:
+      - name: base_id
+        tests:
+          - not_null
+          - unique
+  - name: stg_oper_pa__ponto_apoio
+    columns:
+      - name: codigo_pa
+        tests:
+          - not_null
+          - unique
+  - name: stg_oper_pa__regiao_eletrica
+    columns:
+      - name: reg_eletrica_id
+        tests:
+          - not_null
+          - unique

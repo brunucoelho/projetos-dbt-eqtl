@@ -1,0 +1,17 @@
+version: 2
+
+models:
+  - name: stg_adms__oms_inc_incident
+    columns:
+      - name: outage_time
+        tests:
+          - dbt_utils.accepted_range:
+              arguments:
+                min_value: "'1900-01-01'::timestamp"
+                max_value: "'2100-01-01'::timestamp"
+      - name: actual_end_time
+        tests:
+          - dbt_utils.accepted_range:
+              arguments:
+                min_value: "'1900-01-01'::timestamp"
+                max_value: "'2100-01-01'::timestamp"

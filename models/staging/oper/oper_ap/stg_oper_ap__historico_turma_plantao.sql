@@ -1,0 +1,20 @@
+with source as (
+select
+  HIST_TURMA_PLANTAO_ID,
+  VIATURA_ID,
+  HTP_INICIO_TURNO,
+  HTP_FIM_TURNO,
+  HTP_ODOMETRO_INICIO_TURNO,
+  HTP_ODOMETRO_FIM_TURNO,
+  HTP_INICIO_INTERVALO,
+  HTP_FIM_INTERVALO,
+  HTP_TELEFONE,
+  HTP_OBSERVACAO,
+  HTP_SAIDA_PREVISTA,
+  USUARIO_ID_INICIO,
+  USUARIO_ID_FIM,
+  PREFIXO_TURMA_ID
+  from {{ source('oper_ap','historico_turma_plantao') }}
+)
+
+select * from source

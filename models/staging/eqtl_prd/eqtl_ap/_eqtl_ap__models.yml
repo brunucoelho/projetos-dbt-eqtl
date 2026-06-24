@@ -1,0 +1,31 @@
+version: 2
+
+models:
+  - name: stg_eqtl_ap__notas_servicos_fechadas
+    columns:
+      - name: nota
+        tests:
+          - not_null
+          - unique
+
+  - name: stg_eqtl_ap__visitas_notas
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - nota
+              - nr_visita
+              - medida
+
+  - name: stg_eqtl_ap__tab_regional_politica
+    columns:
+      - name: estrutura_regional_politica
+        tests:
+          - not_null
+          - unique
+      - name: mandante
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['405']

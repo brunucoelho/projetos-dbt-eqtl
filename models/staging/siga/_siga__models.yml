@@ -1,0 +1,27 @@
+version: 2
+
+models:
+  - name: stg_siga__tb_ofsc_activities_rt
+    columns:
+      - name: nb_id
+        tests:
+          - not_null
+          - unique
+      - name: tx_worktype
+        tests:
+          - relationships:
+              arguments:
+                to: ref('glossario_atividades_siga')
+                field: rotulo
+      - name: TX_EQ_TIPOCONCLUSAOEXEC
+        tests:
+          - relationships:
+              arguments:
+                to: ref('tb_dm_propriedades')
+                field: TX_CHAVE
+      - name: TX_EQ_TIPOCONCLUSAONAOEXEC
+        tests:
+          - relationships:
+              arguments:
+                to: ref('tb_dm_propriedades')
+                field: TX_CHAVE

@@ -1,0 +1,26 @@
+with source as (
+select
+    HIST_TURMA_PLANTAO_ID,
+    VIATURA_ID,
+    HTP_INICIO_TURNO,
+    HTP_FIM_TURNO,
+    HTP_ODOMETRO_INICIO_TURNO,
+    HTP_ODOMETRO_FIM_TURNO,
+    HTP_SAIDA_PREVISTA,
+    HTP_TELEFONE,
+    HTP_OBSERVACAO,
+    USUARIO_ID_INICIO,
+    USUARIO_ID_FIM,
+    HTP_FIM_INTERVALO,
+    HTP_INICIO_INTERVALO,
+    PREFIXO_TURMA_ID,
+    HTP_SINCRONIZADO,
+    HTP_CODIGO_PA,
+    HTP_BASE_ID,
+    HTP_TP_TECNOLOGIA,
+    ID_CARGA_TRABALHO,
+    DATA_DADOS
+  from {{ source('oper_go','historico_turma_plantao') }}
+)
+
+select * from source

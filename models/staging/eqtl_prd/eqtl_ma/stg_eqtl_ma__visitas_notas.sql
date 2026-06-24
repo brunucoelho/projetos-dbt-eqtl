@@ -1,0 +1,37 @@
+with source as (
+    select
+    MANDANTE,
+    ltrim(NOTA, '0') NOTA,
+    NR_VISITA,
+    MEDIDA,
+    DATA_ALTERACAO,
+    USUARIO_ALTERACAO,
+    DATA_INICIO_SERVICO,
+    DATA_FINAL_SERVICO,
+    DATA_INICIO_DESLOCAMENTO,
+    DATA_FINAL_DESLOCAMENTO,
+    NR_VIATURA,
+    PLACA_VIATURA,
+    GRUPO_MEDIDA,
+    CODIGO_MEDIDA,
+    LOCAL,
+    KM_INICIAL,
+    KM_FINAL,
+    EQUIPE_EXECUCAO,
+    MATRICULA_EXECUTOR,
+    NOME_EXECUTOR,
+    FORNECEDOR,
+    NOME_FORNECEDOR,
+    MATRICULA_EXECUTOR2,
+    NOME_EXECUTOR2,
+    NOME_FORNECEDOR2,
+    TOI,
+    FLAG_ERRO,
+    LATITUDE,
+    LONGITUDE
+    from {{ source('eqtlinfo_prd_ma','visitas_notas') }}
+)
+
+select
+*
+from source

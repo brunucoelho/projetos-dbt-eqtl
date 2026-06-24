@@ -1,0 +1,38 @@
+version: 2
+
+sources:
+  - name: oper_ap
+    database: eqtlinfo_raw
+    schema: oper_ap
+    config:
+      freshness:
+        warn_after: {count: 1, period: day}
+        error_after: {count: 2, period: day}
+    tables:
+      - name: movto_os_comercial
+        config:
+          loaded_at_field: "CAST(data_dados AS timestamp_tz)"
+      - name: conclui_os_comercial
+        config:
+          loaded_at_field: "TO_TIMESTAMP(REPLACE(data_dados,'.',''), 'DD-MON-YY HH24')"
+      - name: code_medida
+        config:
+          loaded_at_field: "CAST(data_dados AS timestamp_tz)"
+      - name: turma_os_comercial
+        config:
+          loaded_at_field: "CAST(data_dados AS timestamp_tz)"
+      - name: historico_turma_plantao
+        config:
+          loaded_at_field: "CAST(data_dados AS timestamp_tz)"
+      - name: prefixo_turma
+        config:
+          loaded_at_field: "CAST(data_dados AS timestamp_tz)"
+      - name: base
+        config:
+          loaded_at_field: "CAST(data_dados AS timestamp_tz)"
+      - name: ponto_apoio
+        config:
+          loaded_at_field: "CAST(data_dados AS timestamp_tz)"
+      - name: regiao_eletrica
+        config:
+          loaded_at_field: "CAST(data_dados AS timestamp_tz)"

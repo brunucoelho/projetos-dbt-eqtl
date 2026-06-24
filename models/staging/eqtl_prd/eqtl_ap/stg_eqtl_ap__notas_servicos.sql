@@ -1,0 +1,51 @@
+with source as (
+    select
+    "MANDANTE",
+    "INSTALACAO",
+    "NOTA",
+    "TIPO_NOTA",
+    "TEXTO_BREVE",
+    "GRUPO_CODES",
+    "CODIFICACAO",
+    "TIPO_CATALOGO",
+    "MEDIDAS",
+    "MES_COMPETENCIA",
+    "DATA_NOTA",
+    "CRIADO_POR",
+    "DATA_CRIACAO",
+    "INICIO_AVARIA",
+    "FIM_AVARIA",
+    "DATA_ALTERACAO",
+    "DATA_ENCERRAMENTO",
+    "CATEGORIA_TARIFA",
+    "PARCEIRO_NEGOCIO",
+    "CONTA_CONTRATO",
+    "COD_ATIVIDADE_CRM",
+    "SOLICITACAO_CRM",
+    "ESTRUT_REGIONAL_POLITICA",
+    "AGRUP_ESTRUTURA_REGIONAL",
+    "AREA_ESTRUT_REGIONAL",
+    "CARTEIRA_CLIENTE",
+    "ALTERADO_POR",
+    "SISTEMA_DIRECIONADO",
+    "CENTRO_CENTRAB",
+    "CENTRO_TRABALHO",
+    "UNIDADE_LEITURA",
+    "ID_ROTA",
+    "TIPO_CORTE",
+    "FINANCIAMENTO_PADRAO",
+    "STATUS_CCS",
+    "STATUSNTF2",
+    "STATUSDT",
+    "DATA_DADOS",
+    "INICIO_DESEJADO",
+    "FIM_DESEJADO",
+    "NOTA_VINCULADA",
+    "DATA_INCLUSAO_EQTLINFO",
+    "PRIOK"
+    from {{ source('eqtlinfo_prd_ap','notas_servicos') }}
+)
+
+select
+*
+from source

@@ -1,0 +1,10 @@
+OSTIPO_ID,GRUPO
+CT,[CT] - Corte/Suspensão de Fornecimento
+DR,[DR] - Deslocamento de Ramal
+DS,[DS] - Desligamento
+IS,[IS] - Inspeção Técnica
+LG,[LN] - Ligação Nova
+MM,[MM] - Mudança de Medidor de Local
+NT,[NT] - Nível de Tensão
+RI,[RL] - Religação
+TR,[TR] - Troca de Padrão / Equipamento
