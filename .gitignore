@@ -1,0 +1,45 @@
+# ── dbt ──────────────────────────────────────────────────────────────────────
+# Artefatos gerados em cada execução (SQL compilado, run_results, manifest)
+target/
+
+# Pacotes instalados via `dbt deps` (equivalente ao node_modules)
+dbt_packages/
+
+# Logs de execução
+logs/
+
+# Cache interno do dbt
+.dbt/
+
+# ── Credenciais e segredos ────────────────────────────────────────────────────
+# NUNCA versionar — contém usuário, senha e account do Snowflake
+profiles.yml
+
+# Variáveis de ambiente com segredos
+.env
+.env.*
+*.env
+
+# ── Snowflake / ferramentas de BI ─────────────────────────────────────────────
+# Arquivos de configuração local do SnowSQL
+~/.snowsql/config
+snowsql_config
+
+# ── Sistema operacional ───────────────────────────────────────────────────────
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# ── IDEs ─────────────────────────────────────────────────────────────────────
+.vscode/settings.json
+.idea/
+
+# ── Python (se usado em análises ou hooks) ────────────────────────────────────
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
